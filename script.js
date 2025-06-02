@@ -437,10 +437,42 @@ async function loadTestnetBalance() {
     const params = chainParams[chain];
 
     try {
-    await window.ethereum.request({
+        try {
+      await window.ethereum.request({
         method: 'wallet_switchEthereumChain',
         params: [{ chainId: params.chainId }],
-    });
+      });
+    } catch (switchError) {
+      // ถ้ายังไม่มี chain ใน MetaMask ให้เพิ่ม chain เข้าไปก่อน
+      if (switchError.code === 4902) {
+        try {
+          await window.ethereum.request({
+            method: 'wallet_addEthereumChain',
+            params: [{
+              chainId: params.chainId,
+              chainName: chain.toUpperCase() + " Testnet",
+              rpcUrls: params.rpcUrls,
+              nativeCurrency: {
+                name: "ETH",
+                symbol: "ETH",
+                decimals: 18,
+              },
+              blockExplorerUrls: [], // เพิ่ม URL ถ้ามี
+            }],
+          });
+    
+          // หลังจากเพิ่มเสร็จ ให้ switch ไปอีกรอบ
+          await window.ethereum.request({
+            method: 'wallet_switchEthereumChain',
+            params: [{ chainId: params.chainId }],
+          });
+        } catch (addError) {
+          throw addError;
+        }
+      } else {
+        throw switchError;
+      }
+    }
     } catch (switchError) {
     if (switchError.code === 4902) {
         // Chain ยังไม่ถูกเพิ่มใน MetaMask → ใช้ wallet_addEthereumChain
