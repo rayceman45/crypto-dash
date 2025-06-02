@@ -400,7 +400,11 @@ async function loadWhaleTransactions() {
 }
 
 // Testnet Farming - โหลด balance จาก testnet ต่าง ๆ
+let isSwitching = false;
 async function loadTestnetBalance() {
+  if (isSwitching) return;
+  isSwitching = true;
+  
   const chain = document.getElementById('testnetSelect').value;
   const testnetBalanceDiv = document.getElementById('testnetBalance');
   testnetBalanceDiv.innerHTML = "กำลังโหลด...";
@@ -526,6 +530,8 @@ async function loadTestnetBalance() {
 
   } catch(err) {
     testnetBalanceDiv.innerHTML = `เกิดข้อผิดพลาด: ${err.message}`;
+  } finally {
+    isSwitching = false;
   }
 }
 
