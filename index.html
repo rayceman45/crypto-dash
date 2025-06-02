@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Crypto Dashboard Phase 1</title>
+<link rel="stylesheet" href="style.css">
+<script src="libs/ethers.min.js"></script>
+</head>
+<body>
+
+<nav>
+  <h1>Crypto Dashboard</h1>
+</nav>
+
+<div class="sidebar">
+  <ul>
+    <li>Dashboard</li>
+    <li>L2 Projects</li>
+    <li>Wallet</li>
+    <li>Airdrops</li>
+  </ul>
+</div>
+
+<main>
+  <div class="card">
+    <h2>Wallet Info</h2>
+    <button id="connectWalletBtn">Connect MetaMask</button>
+    <p><strong>Address:</strong> <span id="walletAddress">Not connected</span></p>
+    <p><strong>ETH Balance:</strong> <span id="ethBalance">-</span></p>
+    <p><strong>Chain:</strong> <span id="chainInfo">-</span></p>
+  </div>
+
+  <div class="card">
+    <h2>Used L2 Projects</h2>
+    <ul id="l2ProjectsList">
+      <!-- Example projects -->
+      <li>Arbitrum</li>
+      <li>Optimism</li>
+      <li>Polygon</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h2>Airdrop Eligibility Tracker</h2>
+    <p>Wallet: <span id="airdropWallet"></span></p>
+    <div id="projectsStatus">
+        <!-- แสดงสถานะแต่ละโปรเจกต์ -->
+    </div>
+  </div>
+
+  <!-- ต่อจาก Phase 1 -->
+    <section id="airdrop-status">
+    <h2>Airdrop Eligibility Tracker</h2>
+    <div id="projectStatus"></div>
+    </section>
+
+    <!-- เพิ่ม tab หรือ section ใหม่ -->
+    <section id="whale-tracker" style="">
+        <h2>Whale Tracker</h2>
+        <button id="loadWhaleTxBtn">โหลด Whale Transactions</button>
+        <div id="whaleTxList"></div>
+    </section>
+
+    <section id="testnet-farming" style="">
+        <h2>Testnet Farming</h2>
+        <div>
+            <label>เลือก Testnet: </label>
+            <select id="testnetSelect">
+            <option value="goerli">Goerli</option>
+            <option value="sepolia">Sepolia</option>
+            <option value="scroll">Scroll Testnet</option>
+            <option value="linea">Linea Testnet</option>
+            </select>
+        </div>
+        <button id="loadTestnetBalanceBtn">โหลด Balance</button>
+        <div id="testnetBalance"></div>
+
+        <h3>บันทึกกิจกรรมฟาร์ม</h3>
+        <textarea id="farmLog" placeholder="บันทึกกิจกรรมฟาร์มของคุณที่นี่..."></textarea>
+        <button id="saveFarmLogBtn">บันทึก</button>
+        <div id="farmLogStatus"></div>
+    </section>
+
+
+
+</main>
+
+<!-- <script src="https://cdn.jsdelivr.net/npm/ethers@6.6.3/dist/ethers.min.js" type="application/javascript"></script> -->
+<script src="script.js"></script>
+</body>
+</html>
