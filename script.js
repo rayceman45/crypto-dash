@@ -453,16 +453,16 @@ async function loadTestnetBalance() {
           await window.ethereum.request({
             method: 'wallet_addEthereumChain',
             params: [{
-              chainId: params.chainId,
-              chainName: chain.toUpperCase() + " Testnet",
-              rpcUrls: params.rpcUrls,
+              chainId: '0xaa36a7',
+              chainName: 'Sepolia Testnet',
               nativeCurrency: {
-                name: "ETH",
-                symbol: "ETH",
-                decimals: 18,
+                name: 'SepoliaETH',
+                symbol: 'ETH',
+                decimals: 18
               },
-              blockExplorerUrls: [], // เพิ่ม URL ถ้ามี
-            }],
+              rpcUrls: ['https://rpc.sepolia.org'],
+              blockExplorerUrls: ['https://sepolia.etherscan.io']
+            }]
           });
     
           // หลังจากเพิ่มเสร็จ ให้ switch ไปอีกรอบ
